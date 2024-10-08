@@ -1,0 +1,26 @@
+
+<div class="nested-fields">
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div>
+    <%= form.label :is_public %>
+    <%= form.select :is_public, Post.is_publics.keys.map { |k| [k.humanize, k] }, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div>
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :title, { prompt: "Select Category" }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to_remove_association "Delete", form, data: { confirm: 'Are you sure that you want to remove these nested fields?' }, class: "text-red-500 underline" %>
+  </div>
+</div>

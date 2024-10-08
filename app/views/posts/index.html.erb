@@ -1,0 +1,7 @@
+<% @posts.each do |c| %>
+  <%= "- "+ c.title + ":"   %>
+  <%= c.description  %>
+  <%= c.is_public %>
+  <br>
+<% end %>
+<%= paginate @categories, theme: 'twitter-bootstrap-3' %>

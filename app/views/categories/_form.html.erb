@@ -1,26 +1,39 @@
-<%= form_with(model: category) do |form| %>
-  <div >
-    <% if category.errors.any? %>
+<%= form_with model: @category, local: true do |form| %>
+  <div>
+    <% if @category.errors.any? %>
       <ul>
-        <% admin_category.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
-    <% end %>  
+    <% end %>
   </div>
+
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
+
   <div>
     <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
+
   <div>
     <%= form.label :image %>
     <%= form.file_field :image %>
   </div>
+
   <div>
-     <%= form.submit%>
+    <%= form.fields_for :posts do |posts_form| %>
+      <%= render "categories/post_fields", form: posts_form %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add Post', form, :posts, form_name: 'form' %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.submit %>
   </div>
 <% end %>

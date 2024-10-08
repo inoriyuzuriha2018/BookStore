@@ -1,0 +1,31 @@
+<%= form_with(model: post) do |form| %>
+  <div >
+    <% if post.errors.any? %>
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    <% end %>  
+  </div>
+  
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+  <div>
+    <%= form.label :is_public %>
+    <%= form.select :is_public, Post.is_publics.keys.map { |k| [k.humanize, k] } %>
+  </div>
+	<div>
+		<%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :title, id: "category" %>
+  </div>
+	<div>
+    <%= form.submit%>
+  </div>
+<% end %>

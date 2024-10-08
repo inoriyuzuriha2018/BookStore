@@ -11,6 +11,7 @@ class CategoriesController < ApplicationController
 
   def new
     @category = Category.new
+    @category.posts.build unless @category.posts.present?
   end
 
   def create
@@ -61,6 +62,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:title, :description, :image)
+      params.require(:category).permit(:title, :description, :image, posts_attributes: [:title, :description, :is_public, :category_id, :_destroy])
     end
 end
