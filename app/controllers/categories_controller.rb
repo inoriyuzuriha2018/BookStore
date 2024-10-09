@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show edit update destroy ]
-
+  after_action -> { flash.discard }
   def index 
     @categories = Category.all.page(params[:page]).per(15)
   end
@@ -19,9 +19,11 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
+        flash[:success] = "Category was successfully created."
         format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
         format.json { render :show, status: :created, location: @category }
       else
+        flash[:error] = @category.errors.full_messages.to_sentence
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
@@ -34,9 +36,11 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
+        flash[:success] = "Category was successfully updated."
         format.html { redirect_to category_url(@category), notice: "Category was successfully updated." }
         format.json { render :show, status: :ok, location: @category }
       else
+        flash[:error] = @category.errors.full_messages.to_sentence
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
@@ -47,6 +51,7 @@ class CategoriesController < ApplicationController
     @category.destroy!
 
     respond_to do |format|
+      flash[:success] = "Category was successfully destroyed."
       format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
       format.json { head :no_content }
     end

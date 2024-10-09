@@ -10,11 +10,13 @@
     <%= stylesheet_link_tag 'footer' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'toastr', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <%= render "shared/header" %>
-    <%= yield %>
-    <%= render "shared/footer" %>
+      <%= yield :content_js %>
+      <%= yield %>
+    <%= render "shared/footer" %>  
   </body>
 </html>
