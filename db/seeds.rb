@@ -1,4 +1,5 @@
-Category.create([
+# Tạo danh mục
+categories = Category.create([
   { title: 'Technology', description: 'All about technology and gadgets.' },
   { title: 'Health', description: 'Health tips and wellness advice.' },
   { title: 'Travel', description: 'Travel guides and destination tips.' },
@@ -51,3 +52,13 @@ Category.create([
   { title: 'Social Media', description: 'The latest trends in social platforms.' },
   { title: 'Content Creation', description: 'Tips for creators and influencers.' }
 ])
+
+# Tạo bài viết cho từng danh mục
+categories.each do |category|
+  3.times do |i|  # Tạo 3 bài viết cho mỗi danh mục
+    category.posts.create(
+      title: "#{category.title} Post #{i + 1}",
+      description: "This is the content for the #{category.title} post number #{i + 1}."
+    )
+  end
+end
