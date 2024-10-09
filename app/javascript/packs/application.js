@@ -29,3 +29,13 @@ Turbolinks.start()
 ActiveStorage.start()
 window.jQuery = $;
 window.$ = $;
+
+// Lấy token CSRF từ thẻ meta
+var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+// Thiết lập token CSRF cho tất cả các yêu cầu Ajax
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': csrfToken
+  }
+});

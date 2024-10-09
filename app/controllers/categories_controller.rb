@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
       if @category.save
         flash[:success] = "Category was successfully created."
         format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
-        format.json { render :show, status: :created, location: @category }
+        format.json { render json: @category.to_json, status: :ok }
       else
         flash[:error] = @category.errors.full_messages.to_sentence
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class CategoriesController < ApplicationController
       if @category.update(category_params)
         flash[:success] = "Category was successfully updated."
         format.html { redirect_to category_url(@category), notice: "Category was successfully updated." }
-        format.json { render :show, status: :ok, location: @category }
+        format.json { render json: @category.to_json, status: :ok }
       else
         flash[:error] = @category.errors.full_messages.to_sentence
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,6 +54,7 @@ class CategoriesController < ApplicationController
       flash[:success] = "Category was successfully destroyed."
       format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
       format.json { head :no_content }
+      format.js   { render json: { success: true }  }
     end
   end
 

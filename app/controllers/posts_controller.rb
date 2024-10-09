@@ -47,7 +47,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to posts_url, notice: "Category was successfully destroyed." }
-      format.json { head :no_content }
+      format.json { render json: {message: "success"}, status: :ok }
     end
   end
 
