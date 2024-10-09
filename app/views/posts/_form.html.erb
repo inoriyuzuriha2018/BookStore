@@ -1,14 +1,8 @@
+<% content_for :content_js do %>
+  <%= custom_bootstrap_flash %>
+<% end %>
+
 <%= form_with(model: post) do |form| %>
-  <div >
-    <% if post.errors.any? %>
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    <% end %>  
-  </div>
-  
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>

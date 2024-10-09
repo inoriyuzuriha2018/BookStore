@@ -1,14 +1,8 @@
-<%= form_with model: @category, local: true do |form| %>
-  <div>
-    <% if @category.errors.any? %>
-      <ul>
-        <% @category.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
+<% content_for :content_js do %>
+  <%= custom_bootstrap_flash %>
+<% end %>
 
+<%= form_with model: @category, local: true do |form| %>
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -37,3 +31,4 @@
     <%= form.submit %>
   </div>
 <% end %>
+
