@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show edit update destroy ]
 
   def index 
-    @categories = Category.all
+    @categories = Category.all.page(params[:page]).per(15)
   end
 
   def show
@@ -61,6 +61,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:title, :description)
+      params.require(:category).permit(:title, :description, :image)
     end
 end

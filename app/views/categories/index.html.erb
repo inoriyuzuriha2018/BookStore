@@ -2,5 +2,7 @@
 <% @categories.each do |c| %>
   <%= "- "+ c.title + ":"   %>
   <%= c.description  %>
+  <%= c.image.present? ? image_tag(c.image.variant(resize_to_limit: [50, 50])) : image_tag("https://via.placeholder.com/50") %>
   <br>
 <% end %>
+<%= paginate @categories, theme: 'twitter-bootstrap-3' %>
