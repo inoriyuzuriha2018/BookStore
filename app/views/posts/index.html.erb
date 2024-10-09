@@ -1,7 +1,15 @@
-<% @posts.each do |c| %>
-  <%= "- "+ c.title + ":"   %>
-  <%= c.description  %>
-  <%= c.is_public %>
-  <br>
-<% end %>
-<%= paginate @categories, theme: 'twitter-bootstrap-3' %>
+<div id="post-form">
+  <% @posts.each do |c| %>
+    <div id="post-<%= c.id %>">
+      <%= "- "+ c.title + ":"   %>
+      <%= c.description  %>
+      <%= c.is_public %>
+      <button class="delete-post" data-id="<%= c.id %>">Xóa</button>
+      <br>
+    </div>
+  <% end %>
+</div>  
+
+<%= javascript_pack_tag 'removePost' %>
+
+<%= paginate @posts, theme: 'twitter-bootstrap-3' %>

@@ -3,6 +3,8 @@
   <head>
     <title>BookStore</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
@@ -15,7 +17,6 @@
 
   <body>
     <%= render "shared/header" %>
-      <%= yield :content_js %>
       <%= yield %>
     <%= render "shared/footer" %>  
   </body>
