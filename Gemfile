@@ -23,6 +23,8 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem "cocoon"
 gem 'simple_form'
+gem "sidekiq"
+gem "font-awesome-sass"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
