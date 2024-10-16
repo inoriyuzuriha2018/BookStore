@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-
   def index 
-    @posts = Post.all.page(params[:page]).per(15)
+    @posts = Post.all.order("id DESC").page(params[:page]).per(15)
   end
 
   def show
@@ -18,9 +17,11 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Category was successfully created." }
+        flash[:success] = "Post was successfully created."
+        format.html { redirect_to posts_url }
         format.json { render :show, status: :created, location: @post }
       else
+        flash[:error] = @post.errors.full_messages.to_sentence
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -33,9 +34,11 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: "Category was successfully updated." }
+        flash[:success] = "Post was successfully updated."
+        format.html { redirect_to posts_url }
         format.json { render :show, status: :ok, location: @post }
       else
+        flash[:error] = @post.errors.full_messages.to_sentence
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -46,7 +49,7 @@ class PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Category was successfully destroyed." }
+      format.html { redirect_to posts_url }
       format.json { render json: {message: "success"}, status: :ok }
     end
   end

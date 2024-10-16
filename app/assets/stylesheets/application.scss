@@ -14,3 +14,26 @@
 */
 @import "bootstrap";
 @import "toastr/toastr";
+
+$color_1: purple;
+$background-color_toastr_error: red;
+$background-color_toastr_success: green;
+.lineTop {
+  border-top: 5px solid $color_1;
+	margin-top: 5px;
+	width: 100%;
+}
+.lineDown {
+	border-bottom: 5px solid $color_1;
+	margin-top: 5px;
+	width: 100%;
+}
+
+#toast-container {
+	>.toast-error {
+		background-color: $background-color_toastr_error;
+	}
+	>.toast-success {
+		background-color: $background-color_toastr_success;
+	}
+}

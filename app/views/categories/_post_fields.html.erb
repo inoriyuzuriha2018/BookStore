@@ -1,26 +1,24 @@
-<hr>
-<div class="nested-fields">
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+
+<div class="nested-fields mt-2 pt-2 position-relative">
+  <div class="field mb-1">
+    <%= form.label :title, class: "form-label" %>
+    <i class="icon-asterisk text-danger fs-6" style="font-size: 8px !important;"></i>
+    <%= form.text_field :title, class: "form-control-lg px-3 py-2 mt-2 w-100 h-100" %>
   </div>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_field :description, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="field mb-1">
+    <%= form.label :description, class: "col-sm-2 col-form-label col-form-label-sm" %>
+    <%= form.text_area :description, class: "px-3 py-2 mt-2 w-100 h-100" %>
   </div>
 
-  <div>
-    <%= form.label :is_public %>
-    <%= form.select :is_public, Post.is_publics.keys.map { |k| [k.humanize, k] }, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="field mb-3 form-check form-switch">
+    <%= form.check_box :is_public,  { class: "form-check-input", id: "flexSwitchCheckDefault"}, "public", "unpublic" %>
+    <%= form.label :is_public, "Public", class: "form-check-label" %><br>
   </div>
 
-  <div>
-    <%= form.label :category_id %>
-    <%= form.collection_select :category_id, Category.all, :id, :title, { prompt: "Select Category" }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="mt-4">
-    <%= link_to_remove_association "Delete", form, data: { confirm: 'Are you sure that you want to remove these nested fields?' }, class: "btn btn-danger" %>
+  <div class="field position-absolute top-0 end-0">
+    <%= link_to_remove_association form, data: { confirm: 'Are you sure that you want to remove these nested fields?'} do %>
+     <i class="icon-remove fs-4" style="color: red; text-decoration: none"></i>
+    <% end %>
   </div>
 </div>

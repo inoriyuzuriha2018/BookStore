@@ -1,2 +1,18 @@
-<%= category.title %>
-<%= category.description %>
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0 demo">
+    <div class="col-md-4">
+      <%= category.image.present? ? image_tag(category.image.variant(resize_to_limit: [150, 150]), class: "img-fluid rounded-start") : image_tag("https://via.placeholder.com/150", class: "img-fluid rounded-start") %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= category.title %></h5>
+        <p class="card-text"><%= category.description %></p>
+        <div>
+          <%= link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-danger btn-sm" do %>
+            <i class="icon-trash"></i> Delete
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

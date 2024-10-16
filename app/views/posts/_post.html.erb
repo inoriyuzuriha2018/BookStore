@@ -1,2 +1,14 @@
-<%= post.title %>
-<%= post.description %>
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= post.title %></h5>
+    <p class="card-text"><%= post.description %></p>
+    <p class="card-text">
+      <strong>Visibility: </strong>
+      <% if post.is_public %>
+        <span class="badge bg-success">Public</span>
+      <% else %>
+        <span class="badge bg-secondary">Private</span>
+      <% end %>
+    </p>
+  </div>
+</div>

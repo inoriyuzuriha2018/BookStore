@@ -1,15 +1,47 @@
-<div id="post-form">
-  <% @posts.each do |c| %>
-    <div id="post-<%= c.id %>">
-      <%= "- "+ c.title + ":"   %>
-      <%= c.description  %>
-      <%= c.is_public %>
-      <button class="delete-post" data-id="<%= c.id %>">Xóa</button>
-      <br>
-    </div>
-  <% end %>
-</div>  
-
+<%= custom_bootstrap_flash %>
+<div class="row justify-content-center">
+  <div class="col-10">
+		<%= button_to new_post_url, method: :get, class: "btn btn-success", style: "margin-left: 10px" do %>
+  		<i class="icon-plus"></i> New
+		<% end %>
+	</div>
+  <div id="post-form" class="col-10">
+    <table class="table table-sm table-striped w-100 p-3">
+      <thead class="thead-dark">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Public</th>
+          <th>Action</th>
+        </tr>
+     </thead>
+      <tbody>
+      <% @posts.each do |c| %>
+        <tr id="post-<%= c.id %>">
+          <td><%= c.title %></td>
+          <td><%= c.description %></td>
+          <td>
+            <% if c.is_public == "public"  %>
+              <span class="badge bg-success">Public</span>
+            <% else %>
+              <span class="badge bg-secondary">Private</span>
+            <% end %>
+          </td>
+          <td style="display: flex; padding-left: 15px">
+            <button class="button_to delete-post btn btn-danger btn-sm h-50" data-id="<%= c.id %>">Delete</button>
+            
+            <%= button_to edit_post_url(c), method: :get, class: "btn btn-info btn-sm", style: "margin-left: 10px" do %>
+              <i class="icon-edit-sign"></i> Update
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+  <div class="col-10">
+		<%= paginate @posts,  theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center" %>
+	</div>
+</div>
 <%= javascript_pack_tag 'removePost' %>
-
-<%= paginate @posts, theme: 'twitter-bootstrap-3' %>
+<%= flash.discard  %>

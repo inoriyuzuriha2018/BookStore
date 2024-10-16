@@ -1,0 +1,4 @@
+web: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+redis: redis-server
+webpacker: ./bin/webpack-dev-server
+sidekiq: bundle exec sidekiq -C config/sidekiq.yml
