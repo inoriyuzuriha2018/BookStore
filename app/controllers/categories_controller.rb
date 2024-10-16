@@ -1,8 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show edit update destroy ]
-  after_action -> { flash.discard }
   def index 
-    @categories = Category.all.page(params[:page]).per(15)
+    @categories = Category.all.order("id DESC").page(params[:page]).per(15)
   end
 
   def show
@@ -11,21 +10,23 @@ class CategoriesController < ApplicationController
 
   def new
     @category = Category.new
-    @category.posts.build unless @category.posts.present?
+    #@category.posts.build unless @category.posts.present?
   end
 
   def create
     @category = Category.new(category_params)
-
+   
     respond_to do |format|
-      if @category.save
+      ActiveRecord::Base.transaction do
+        @category.save!
         flash[:success] = "Category was successfully created."
-        format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
+        format.html { redirect_to categories_url }
         format.json { render json: @category.to_json, status: :ok }
-      else
-        flash[:error] = @category.errors.full_messages.to_sentence
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Transaction failed: #{e.message}"
+        flash[:error] = e.message
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: e.message, status: :unprocessable_entity }
       end
     end
   end
@@ -35,14 +36,15 @@ class CategoriesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @category.update(category_params)
+      ActiveRecord::Base.transaction do  
+        @category.update(category_params)
         flash[:success] = "Category was successfully updated."
-        format.html { redirect_to category_url(@category), notice: "Category was successfully updated." }
+        format.html { redirect_to categories_url }
         format.json { render json: @category.to_json, status: :ok }
-      else
-        flash[:error] = @category.errors.full_messages.to_sentence
+      rescue ActiveRecord::RecordInvalid => e
+        flash[:error] = e.message
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: e.message, status: :unprocessable_entity }
       end
     end
   end
@@ -52,9 +54,9 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       flash[:success] = "Category was successfully destroyed."
-      format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
+      format.html { redirect_to categories_url }
       format.json { head :no_content }
-      format.js   { render json: { success: true }  }
+      format.js  {}
     end
   end
 
@@ -68,6 +70,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:title, :description, :image, posts_attributes: [:title, :description, :is_public, :category_id, :_destroy])
+      params.require(:category).permit(:title, :description, :image, posts_attributes: [:id, :title, :description, :is_public, :category_id, :_destroy])
     end
 end

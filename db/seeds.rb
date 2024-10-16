@@ -1,5 +1,5 @@
 # Tạo danh mục
-categories = Category.create([
+categories = Category.create!([
   { title: 'Technology', description: 'All about technology and gadgets.' },
   { title: 'Health', description: 'Health tips and wellness advice.' },
   { title: 'Travel', description: 'Travel guides and destination tips.' },

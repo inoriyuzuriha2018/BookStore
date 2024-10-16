@@ -25,6 +25,9 @@ gem "cocoon"
 gem 'simple_form'
 gem "sidekiq"
 gem "font-awesome-sass"
+gem 'sidekiq-scheduler'
+gem 'foreman'
+gem 'bootstrap5-kaminari-views'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
