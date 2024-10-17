@@ -23,7 +23,6 @@ gem 'bootstrap-kaminari-views'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem "cocoon"
-gem 'simple_form'
 gem "sidekiq"
 gem "font-awesome-sass"
 gem 'sidekiq-scheduler'
