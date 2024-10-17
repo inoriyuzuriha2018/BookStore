@@ -107,6 +107,13 @@ GEM
     et-orbi (1.2.11)
       tzinfo
     execjs (2.9.1)
+    factory_bot (6.5.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
+    faker (3.4.2)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.0-arm64-darwin)
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
@@ -177,6 +184,9 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
     public_suffix (6.0.1)
@@ -206,6 +216,10 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.7.8)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -277,6 +291,8 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     sidekiq (7.3.2)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -343,6 +359,8 @@ DEPENDENCIES
   capybara (>= 3.26)
   cocoon
   devise
+  factory_bot_rails
+  faker
   font-awesome-sass
   foreman
   image_processing (~> 1.2)
@@ -352,15 +370,18 @@ DEPENDENCIES
   listen (~> 3.3)
   mysql2 (~> 0.5)
   pry (~> 0.14.2)
+  pry-byebug
   pry-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.8)
+  rails-controller-testing
   rails-i18n (~> 6.0)
   ransack
-  rspec-rails
+  rspec-rails (~> 6.1.0)
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  shoulda-matchers
   sidekiq
   sidekiq-scheduler
   simple_form

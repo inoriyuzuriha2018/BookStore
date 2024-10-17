@@ -11,6 +11,7 @@ gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'pry', '~> 0.14.2'
+gem 'pry-byebug'
 gem 'image_processing', '~> 1.2'
 gem 'devise'
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -45,7 +46,11 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   gem 'webdrivers'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 6.1.0'
+  gem 'faker'
+  gem "factory_bot_rails"
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
