@@ -7,7 +7,6 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
   config.cache_classes = false
   config.action_view.cache_template_loading = true
 
@@ -57,4 +56,5 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  Rails.application.routes.default_url_options = {host: 'localhost', port: 3000} 
 end
