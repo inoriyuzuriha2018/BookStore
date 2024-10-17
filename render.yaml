@@ -3,7 +3,7 @@ databases:
     databaseName: mysql
     user: root
     plan: free
-
+    ipAllowList: []
 services:
   - type: web
     name: mysite
@@ -24,4 +24,5 @@ services:
   - type: redis
     name: redis
     plan: free
-    maxmemoryPolicy: noeviction      
+    maxmemoryPolicy: noeviction
+    ipAllowList: []
