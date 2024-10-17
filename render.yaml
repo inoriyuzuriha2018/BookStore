@@ -2,7 +2,6 @@ databases:
   - name: mysqlOwner
     databaseName: mysql
     user: root
-    password: dung1234
     plan: free
 
 services:
