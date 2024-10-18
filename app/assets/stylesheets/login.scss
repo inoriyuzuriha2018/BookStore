@@ -11,7 +11,7 @@ $background-color_5: #fff;
 $background-color_6: #222;
 $border-color_1: #FFFFFF;
 
-@import "https://fonts.googleapis.com/css?family=Montserrat:400,800";
+@import "font/fontgoogleapi.css";
 @keyframes show {
 	0%,49.99% {
 		opacity: 0;
