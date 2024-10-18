@@ -1,3 +1,15 @@
 // Place all the styles related to the Categories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+thead.colorfy th{
+	font-family: Lato-Bold;
+	font-size: 18px;
+	color: #fff;
+	line-height: 1.4;
+	background-color: #191970 !important;
+}
+
+.table td, .table th {
+	padding: .75rem !important; 
+  vertical-align: top;
+}

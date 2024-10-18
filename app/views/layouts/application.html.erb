@@ -14,9 +14,13 @@
     <%= javascript_pack_tag 'toastr', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <%= render "shared/header" %>
-      <%= yield %>
+    <section>
+      <div class="container">
+        <%= yield %>
+      </div>
+    </section>
     <%= render "shared/footer" %>  
   </body>
 </html>
