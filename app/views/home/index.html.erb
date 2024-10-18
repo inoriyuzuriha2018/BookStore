@@ -1,15 +1,15 @@
-<div class="container mt-5">
-  <div class="row">
-    <% Category.first(10).each do |category| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><%= category.title %></h5>
-            <p class="card-text"><%= category.description %></p>
-            <%= link_to 'View More', category_path(category), class: "btn btn-primary btn-sm" %>
-          </div>
+
+<div class="row">
+  <% Category.first(10).each do |category| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= category.title %></h5>
+          <p class="card-text"><%= category.description %></p>
+          <%= link_to 'View More', category_path(category), class: "btn btn-primary btn-sm" %>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+
 </div>
