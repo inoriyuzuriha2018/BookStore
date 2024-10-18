@@ -11,7 +11,6 @@
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
     "popper.js": "^1.16.1",
-    "sass": "1.77.6",
     "toastr": "^2.1.4",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
@@ -19,6 +18,8 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "sass": "^1.77.6",
+    "sass-loader": "^16.0.2",
     "webpack-dev-server": "^3"
   }
 }
