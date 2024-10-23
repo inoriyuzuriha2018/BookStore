@@ -1,6 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Header from '../src/components/TheHeader.vue'
+import SideBar from '../src/components/TheSideBar.vue'
+</script>
 
 <template>
+  <div>
+    <Header />
+    <SideBar />
+  </div>
   <RouterView />
 </template>
 
@@ -42,7 +49,6 @@ nav a:first-of-type {
 
 @media (min-width: 1024px) {
   header {
-    display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }

@@ -1,24 +1,8 @@
 <template>
-  <div>
-    <BAlert v-model="showDismissibleAlert" variant="danger" dismissible>
-      Dismissible Alert!
-    </BAlert>
-    <BButton
-      variant="info"
-      class="m-1"
-      @click="showDismissibleAlert = !showDismissibleAlert"
-    >
-      {{ !showDismissibleAlert ? 'Show' : 'Hide' }} dismissible alert
-    </BButton>
-  </div>
-
   <RouterView />
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-const showDismissibleAlert = ref(false)
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 header {
