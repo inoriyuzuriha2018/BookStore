@@ -51,7 +51,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import  { getUserList } from '@/service/Category'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 interface Category {
   id: number
@@ -65,16 +68,22 @@ interface Category {
 const placeholderImage = 'https://via.placeholder.com/50'
 
 // Example categories data - In a real app, fetch this data from an API
-const categories = ref<Category[]>([
-  {
-    id: 1,
-    title: 'Category 1',
-    description: 'Description 1',
-    image: null,
-    posts_count: 5,
-  },
-  // Add more categories as needed
-])
+const categories = ref<Category[]>()
+
+onMounted(() => {
+  getUserList()
+    .then((response: any) => {
+      if(response.data.length >0){
+        categories.value = response.data;
+      }else{
+        toast("No data!");
+      }
+      console.log(  response.data.length);
+
+    });
+});
+
+
 
 const getImageUrl = (image: string): string => {
   // Modify this logic to suit your API/image handling

@@ -3,6 +3,7 @@ import Header from '../src/components/TheHeader.vue'
 import SideBar from '../src/components/TheSideBar.vue'
 
 import { onMounted } from 'vue'
+
 onMounted(() => {
   const myCollapsible = document.getElementById('eventCollapse') as HTMLElement
   const headerElement = document.getElementById('header') as HTMLAnchorElement

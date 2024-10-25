@@ -29,6 +29,7 @@ gem "font-awesome-sass"
 gem 'sidekiq-scheduler'
 gem 'foreman'
 gem 'bootstrap5-kaminari-views'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
