@@ -58,7 +58,8 @@ categories.each do |category|
   3.times do |i|  # Tạo 3 bài viết cho mỗi danh mục
     category.posts.create(
       title: "#{category.title} Post #{i + 1}",
-      description: "This is the content for the #{category.title} post number #{i + 1}."
+      description: "This is the content for the #{category.title} post number #{i + 1}.",
+      is_public: ["public", "unpublic"].sample
     )
   end
 end

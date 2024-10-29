@@ -8,3 +8,9 @@ export async function getUserList(page= 1): Promise<any[]> {
   return response.data;
 }
 
+
+
+export async function getSearchCategory( querySearch: String): Promise<any[]> {
+  const response = await axios.get(`${rootUrl}/api/v1/categories/serachCategory` + querySearch);
+  return response.data;
+}

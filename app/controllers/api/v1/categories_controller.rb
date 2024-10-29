@@ -6,7 +6,8 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
     .order("id DESC")
     .page(params[:page])
     .per(15)
-    .map do |category|
+    totalPages = categories.total_pages
+    newCategories = categories.map do |category|
       {
         id: category.id,
         title: category.title,
@@ -14,8 +15,8 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
         posts_count: category.posts.size # Hoặc category.products.count
       }
     end
-
-    render json: { data: categories }, status: :ok
+  
+    render json: { total: totalPages, data: newCategories }, status: :ok
   end
 
   def show
@@ -47,6 +48,24 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
   def destroy
     @category.destroy!
     head :no_content
+  end
+
+  def serachCategory
+    hasPost =  params[:hasPost].to_s.downcase == "true" ? true : false 
+
+    categories = Category.searchCategory(params[:title]).order("id DESC").page(params[:page]).per(15)
+    totalPages = categories.total_pages
+
+    newCategories = categories.map do |category|
+      {
+        id: category.id,
+        title: category.title,
+        description: category.description,
+        posts_count: hasPost ? category.posts.where(is_public: true).size  : category.posts.size
+      }
+    end
+    
+    render json: { total: totalPages, data: newCategories }, status: :ok
   end
 
   private

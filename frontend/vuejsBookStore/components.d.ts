@@ -19,6 +19,7 @@ declare module 'vue' {
     BNavForm: typeof import('bootstrap-vue-next/components/BNav')['BNavForm']
     BNavItem: typeof import('bootstrap-vue-next/components/BNav')['BNavItem']
     BNavItemDropdown: typeof import('bootstrap-vue-next/components/BNav')['BNavItemDropdown']
+    BPagination: typeof import('bootstrap-vue-next/components/BPagination')['BPagination']
     BProgress: typeof import('bootstrap-vue-next/components/BProgress')['BProgress']
     CategoryDelete: typeof import('./src/components/category/CategoryDelete.vue')['default']
     CategoryEdit: typeof import('./src/components/category/CategoryEdit.vue')['default']
