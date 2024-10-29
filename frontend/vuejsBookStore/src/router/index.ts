@@ -3,8 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import Layout from '../layouts/app.vue'
 import CategoryLayout from '../layouts/CategoryLayout.vue' // Layout chính
-import CategoryList from '../components/category/CategoryList.vue'
-import CategoryEdit from '@/components/category/CategoryEdit.vue'
+import CategoryList from '../views/categories/list.vue'
+import CategoryEdit from '../views/categories/editCategory.vue'
 
 const routes = [
   {

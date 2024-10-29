@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch, computed } from 'vue'
-import { getSearchCategory, getUserList } from '@/services/Category'
+import { getSearchCategories, getUserList } from '@/services/Category'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import Paginate from 'vuejs-paginate-next'
@@ -176,7 +176,7 @@ const performSearch = () => {
 }
 
 const searchText = (query: string): void => {
-  getSearchCategory(query).then((response: any) => {
+  getSearchCategories(query).then((response: any) => {
     if (response.data.length > 0) {
       totalPage.value = response.total
       state.categories = response.data
@@ -211,6 +211,6 @@ const deleteCategory = (id: number): void => {
 
 const editCategory = (id: number): void => {
   // Navigate to edit category route
-  console.log(`Navigate to edit category ${id}`)
+  router.push({ name: 'CategoryEdit', params: { id: id } })
 }
 </script>
