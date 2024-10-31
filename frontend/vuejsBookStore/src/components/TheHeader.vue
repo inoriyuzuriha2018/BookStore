@@ -1,8 +1,8 @@
 <script setup lang="ts"></script>
 <template>
   <div class="col-lg-10 h-20" id="header">
-    <header>
-      <div>
+    <header class="p-0">
+      <div class="border rounded card h-25">
         <nav class="navbar navbar-expand-lg d-flex justify-content-between">
           <div>
             <a

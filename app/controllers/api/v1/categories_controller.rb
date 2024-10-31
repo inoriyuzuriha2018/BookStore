@@ -12,6 +12,7 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
         id: category.id,
         title: category.title,
         description: category.description,
+        image: category.image.attached? ? url_for(category.image) :nil ,
         posts_count: category.posts.size # Hoặc category.products.count
       }
     end
@@ -20,7 +21,13 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
   end
 
   def show
-    render json: {data: @category}, status: :ok
+    categoryImage = {
+      id: @category.id,
+      title: @category.title,
+      description: @category.description,
+      image: @category.image.attached? ? url_for(@category.image) :nil
+    }
+    render json: {data: categoryImage}, status: :ok
   end
 
   def create
@@ -36,9 +43,10 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
   end
 
   def update
+
     ActiveRecord::Base.transaction do
       if @category.update(category_params)
-        render json:{data: @category}, status: :ok
+        render json:{category: @category}, status: :ok
       else
         render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
       end
@@ -52,7 +60,7 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
 
   def serachCategory
     hasPost =  params[:hasPost].to_s.downcase == "true" ? true : false 
-
+    
     categories = Category.searchCategory(params[:title]).order("id DESC").page(params[:page]).per(15)
     totalPages = categories.total_pages
 
@@ -61,6 +69,7 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
         id: category.id,
         title: category.title,
         description: category.description,
+        image: category.image.attached? ? url_for(category.image) :nil,
         posts_count: hasPost ? category.posts.where(is_public: true).size  : category.posts.size
       }
     end
@@ -77,6 +86,6 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
   end
 
   def category_params
-    params.require(:category).permit(:title, :description, :image, posts_attributes: [:id, :title, :description, :is_public, :_destroy])
+    params.permit(:id ,:title, :description, :image, posts_attributes: [:id, :title, :description, :is_public, :_destroy])
   end
 end

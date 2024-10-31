@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch, computed } from 'vue'
-import { getSearchCategories, getUserList } from '@/services/Category'
+import { getSearchCategories, getCategoryList } from '@/services/Category'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import Paginate from 'vuejs-paginate-next'
@@ -127,7 +127,7 @@ const state = reactive({
 })
 
 onMounted(() => {
-  getUserList(state.currentPage).then((response: any) => {
+  getCategoryList(+state.currentPage).then((response: any) => {
     if (response.data.length > 0) {
       totalPage.value = response.total
       state.categories = response.data
@@ -171,7 +171,6 @@ const performSearch = () => {
       configurable: true, // Có thể xóa hoặc thay đổi thuộc tính
     })
   }
-  console.log(query)
   router.push({ query: query })
 }
 
@@ -181,7 +180,7 @@ const searchText = (query: string): void => {
       totalPage.value = response.total
       state.categories = response.data
     } else {
-      if (response.total < route.query.page) {
+      if (response.total < route.query.page && route.query.page != null) {
         router.push({ query: { title: state.filter.title, page: 1 } })
       }
     }
@@ -194,12 +193,11 @@ const computedTotalPostAPage = computed(() => {
     (total, category) => total + category.posts_count,
     0,
   )
-  // console.log(state.categories.reduce((total, category) => total + category.posts_count, 0))
 })
 
 const getImageUrl = (image: string): string => {
   // Modify this logic to suit your API/image handling
-  return `/uploads/${image}`
+  return `${image}`
 }
 
 const deleteCategory = (id: number): void => {

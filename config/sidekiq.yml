@@ -4,8 +4,3 @@
   - mailers
   - mysite_default
   - mysite_mailers
-:scheduler:
-  :schedule:
-    hard_job:
-      cron: '0 * * * * *'   # Runs once per minute
-      class: HardJob
