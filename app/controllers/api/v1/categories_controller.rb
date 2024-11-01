@@ -35,9 +35,9 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
 
     ActiveRecord::Base.transaction do
       if @category.save
-        render json: {data: @category}, status: :created
+        render json: {category: @category}, status: :created
       else
-        render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: @category.errors }, status: :unprocessable_entity
       end
     end
   end
@@ -48,7 +48,7 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
       if @category.update(category_params)
         render json:{category: @category}, status: :ok
       else
-        render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: @category.errors }, status: :unprocessable_entity
       end
     end
   end

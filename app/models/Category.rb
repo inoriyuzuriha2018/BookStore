@@ -5,7 +5,7 @@ class Category < ApplicationRecord
   end
   accepts_nested_attributes_for :posts, reject_if: :all_blank, allow_destroy: true
 
-  validates :title, length: { maximum: 255 }, presence: true, uniqueness: true, allow_blank: false
+  validates :title, length: { maximum: 255 }, presence: true, uniqueness: true
 
   def self.searchCategory(title, hasPost = false)
     where("title LIKE ?", "%#{title}%")

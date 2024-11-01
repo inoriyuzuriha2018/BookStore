@@ -1,5 +1,5 @@
 <template>
-  <div class="border mt-3 card card-body">
+  <div class="border mt-3 card card-body p-0">
     <h1 class="ps-4 mb-0">Category Management</h1>
     <hr />
     <router-view></router-view>

@@ -5,6 +5,7 @@ import Layout from '../layouts/app.vue'
 import CategoryLayout from '../layouts/CategoryLayout.vue' // Layout chính
 import CategoryList from '../views/categories/list.vue'
 import CategoryEdit from '../views/categories/editCategory.vue'
+import CategoryNew from '@/views/categories/newCategory.vue'
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
         path: 'edit/:id',
         name: 'CategoryEdit',
         component: CategoryEdit,
+        props: true,
+      },
+      {
+        path: 'new',
+        name: 'CategoryNew',
+        component: CategoryNew,
         props: true,
       },
     ],

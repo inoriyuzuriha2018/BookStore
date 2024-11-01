@@ -31,3 +31,15 @@ export async function patchCategory(id: number, form: object): Promise<any> {
   })
   return response
 }
+
+export async function createCategory(form: object): Promise<any> {
+  const response = await axios({
+    method: 'post',
+    url: `${rootUrl}/api/v1/categories/`,
+    data: form,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return response
+}

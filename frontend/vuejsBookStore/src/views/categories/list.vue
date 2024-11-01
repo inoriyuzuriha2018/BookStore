@@ -26,7 +26,15 @@
     </div>
   </div>
   <div>
-    <p v-if="loading">Total Post a Page: {{ computedTotalPostAPage }}</p>
+    <div class="float-start ps-3 mb-3">
+      <router-link :to="{ name: 'CategoryNew' }">
+        <button class="btn btn-primary">New</button>
+      </router-link>
+    </div>
+
+    <p class="float-end pe-5" v-if="loading">
+      Total Post a Page: {{ computedTotalPostAPage }}
+    </p>
   </div>
   <div>
     <table class="table table-sm table-striped w-100 p-3">
@@ -82,7 +90,7 @@
         :page-count="totalPage"
         :prev-text="'Prev'"
         :next-text="'Next'"
-        :container-class="'pagination'"
+        :container-class="'pagination d-flex justify-content-center'"
         :first-last-button="true"
         :click-handler="clickCallback"
       >
@@ -203,7 +211,6 @@ const getImageUrl = (image: string): string => {
 const deleteCategory = (id: number): void => {
   if (confirm('Are you sure?')) {
     // Call API to delete the category
-    console.log(`Category ${id} deleted.`)
   }
 }
 

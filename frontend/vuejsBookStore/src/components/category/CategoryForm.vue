@@ -7,8 +7,14 @@
           type="text"
           id="name"
           class="form-control p-3"
+          :class="{
+            'is-invalid': state.errors?.title?.length > 0,
+          }"
           v-model="state.category.title"
         />
+        <div v-if="state.errors.title.length" class="invalid-feedback">
+          {{ state.errors.title[0] }}
+        </div>
       </div>
 
       <div class="form-group mt-3">
@@ -49,7 +55,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch, computed } from 'vue'
-
+import type { Ref } from 'vue'
 interface Category {
   // Define properties according to the category object structure
   id: number
@@ -58,28 +64,45 @@ interface Category {
   image: Blob
 }
 
-const displayImage = ref(new Blob())
+const computedInitDefaultErrors = computed(() => {
+  return {
+    title: [],
+    description: [],
+    image: '',
+  }
+})
+
+const computedInitDefaultCategory = computed(() => {
+  return {
+    title: '',
+    description: '',
+    image: '',
+  }
+})
+
+const displayImage = ref(null)
 
 const props = defineProps<{
   category: Category
+  errors: object
 }>()
 
 const state = reactive({
-  category: {},
+  category: computedInitDefaultCategory.value,
+  errors: computedInitDefaultErrors.value,
 })
 
 const emit = defineEmits<{
   (e: 'submit', category: Category): void
 }>()
 
-watch(
-  () => props.category,
-  newVal => {
-    state.category = newVal
-    displayImage.value = state.category.image
-    state.category.image = null
-  },
-)
+watch(props, newVal => {
+  state.category = newVal.category
+  state.errors = newVal.errors
+  displayImage.value = state.category.image
+  state.category.image = null
+  console.log(state.errors)
+})
 
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
@@ -89,6 +112,7 @@ const handleFileUpload = (event: Event) => {
 }
 
 const submitForm = () => {
+  state.errors = computedInitDefaultErrors.value
   emit('submit', state.category)
 }
 </script>

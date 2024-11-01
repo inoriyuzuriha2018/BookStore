@@ -23,6 +23,7 @@ declare module 'vue' {
     BProgress: typeof import('bootstrap-vue-next/components/BProgress')['BProgress']
     CategoryDelete: typeof import('./src/components/category/CategoryDelete.vue')['default']
     CategoryEdit: typeof import('./src/components/category/CategoryEdit.vue')['default']
+    CategoryForm: typeof import('./src/components/category/CategoryForm.vue')['default']
     CategoryList: typeof import('./src/views/CategoryList.vue')['default']
     DetailCategory: typeof import('./src/components/category/DetailCategory.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
