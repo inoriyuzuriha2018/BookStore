@@ -81,6 +81,6 @@ const onCategorySubmit = (category: {
 
 <style scoped>
 .parent-div {
-  height: 77vh;
+  height: 90vh;
 }
 </style>

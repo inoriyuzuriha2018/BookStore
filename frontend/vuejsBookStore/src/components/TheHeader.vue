@@ -6,17 +6,7 @@
         <nav
           class="navbar navbar-expand-lg d-flex justify-content-between mb-0"
         >
-          <div>
-            <a
-              class="navbar-brand"
-              href="#eventCollapse"
-              data-bs-toggle="collapse"
-              aria-controls="eventCollapse"
-              role="button"
-              style="padding-left: 20px"
-              >&#9776;</a
-            >
-          </div>
+          <div></div>
           <div class="">
             <a class="navbar-brand" href="#">Navbar3</a>
           </div>

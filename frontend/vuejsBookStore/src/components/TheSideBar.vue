@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="wrap col-2 card card-body" id="eventCollapse">
+  <div class="wrap col-2 card card-body sticky-top" id="eventCollapse">
     <div
       class="d-flex flex-column collapse multi-collapse"
       style="height: 100%"

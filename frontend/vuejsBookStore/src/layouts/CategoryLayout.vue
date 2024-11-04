@@ -1,7 +1,6 @@
 <template>
-  <div class="border mt-3 card card-body p-0">
-    <h1 class="ps-4 mb-0">Category Management</h1>
-    <hr />
+  <div class="border mt-2 card card-body p-0">
+    <h2 class="mt-2 d-flex justify-content-center">Category Management</h2>
     <router-view></router-view>
   </div>
 </template>

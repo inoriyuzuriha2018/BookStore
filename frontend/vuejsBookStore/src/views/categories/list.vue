@@ -1,21 +1,26 @@
 <template>
-  <div>
-    <div class="input-group input-group-sm mb-3">
+  <div class="mt-3 ms-3 me-4">
+    <div class="">
+      <input
+        class="size-checkbox mb-1"
+        type="checkbox"
+        v-model="state.filter.hasPost"
+        aria-label="Checkbox for following text input"
+      />
+      <label class="form-check-label" for="flexCheckDefault">
+        Post have public
+      </label>
+    </div>
+    <div class="input-group mb-3">
       <div class="input-group-prepend">
         <button
           class="btn btn-outline-secondary"
           type="button"
+          id="basic-addon1"
           @click="performSearch"
         >
           <i class="icon-search"></i>
         </button>
-        <div class="input-group-text">
-          <input
-            type="checkbox"
-            v-model="state.filter.hasPost"
-            aria-label="Checkbox for following text input"
-          />
-        </div>
       </div>
       <input
         type="search"
@@ -37,53 +42,54 @@
     </p>
   </div>
   <div>
-    <table class="table table-sm table-striped w-100 p-3">
-      <thead class="thead-dark">
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Image</th>
-          <th>Count</th>
-          <th>Feature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="category in state.categories"
-          :key="category.id"
-          :id="'category_' + category.id"
-        >
-          <td>{{ category.id }}</td>
-          <td>{{ category.title }}</td>
-          <td>{{ category.description }}</td>
-          <td>
-            <img
-              :src="
-                category.image ? getImageUrl(category.image) : placeholderImage
-              "
-              class="img-thumbnail"
-              :alt="category.title"
-              width="50"
-              height="50"
-            />
-          </td>
-          <td>{{ category.posts_count }}</td>
-          <td style="">
-            <button @click="deleteCategory(category.id)" class="btn btn-danger">
-              <i class="icon-trash"></i>
-            </button>
-            <button
-              @click="editCategory(category.id)"
-              class="btn btn-info"
-              style="margin-left: 10px"
-            >
-              <i class="icon-edit-sign"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="d-flex justify-content-center">
+      <table class="table table-sm table-bordered table-striped width-table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Count</th>
+            <th>Feature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="category in state.categories"
+            :key="category.id"
+            :id="'category_' + category.id"
+          >
+            <td>{{ category.id }}</td>
+            <td>{{ category.title }}</td>
+            <td>{{ category.description }}</td>
+            <td>
+              <img
+                :src="
+                  category.image
+                    ? getImageUrl(category.image)
+                    : placeholderImage
+                "
+                class="img-thumbnail"
+                :alt="category.title"
+                width="50"
+                height="50"
+              />
+            </td>
+            <td>{{ category.posts_count }}</td>
+            <td style="">
+              <button
+                @click="editCategory(category.id)"
+                class="btn btn-info"
+                style="margin-left: 10px"
+              >
+                <i class="icon-edit-sign"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div>
       <paginate
         v-model="state.currentPage"
@@ -219,3 +225,17 @@ const editCategory = (id: number): void => {
   router.push({ name: 'CategoryEdit', params: { id: id } })
 }
 </script>
+<style lang="scss" scoped>
+.width-table {
+  width: 97%;
+  td,
+  th {
+    text-align: center;
+  }
+}
+
+.size-checkbox {
+  width: 40px;
+  height: 32px;
+}
+</style>
