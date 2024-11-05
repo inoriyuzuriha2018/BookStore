@@ -4,8 +4,8 @@ import AboutView from '../views/AboutView.vue'
 import Layout from '../layouts/app.vue'
 import CategoryLayout from '../layouts/CategoryLayout.vue' // Layout chính
 import CategoryList from '../views/categories/list.vue'
-import CategoryEdit from '../views/categories/editCategory.vue'
-import CategoryNew from '@/views/categories/newCategory.vue'
+import CategoryEdit from '../views/categories/edit.vue'
+import CategoryNew from '@/views/categories/new.vue'
 
 const routes = [
   {

@@ -2,16 +2,10 @@ import axios from 'axios'
 
 const rootUrl: string = 'http://127.0.0.1:3000'
 
-export async function getCategoryList(page = 1): Promise<any[]> {
-  const pageNumber = page > 1 ? '?page=' + page : ''
-  const response = await axios.get(`${rootUrl}/api/v1/categories` + pageNumber)
-  return response.data
-}
-
-export async function getSearchCategories(querySearch: string): Promise<any[]> {
-  const response = await axios.get(
-    `${rootUrl}/api/v1/categories/serachCategory` + querySearch,
-  )
+export async function getCategories(querySearch: object): Promise<any[]> {
+  const response = await axios.get(`${rootUrl}/api/v1/categories`, {
+    params: querySearch,
+  })
   return response.data
 }
 

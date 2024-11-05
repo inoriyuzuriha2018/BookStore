@@ -13,9 +13,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :posts
-      resources :categories do 
-        get :serachCategory, on: :collection
-      end
+      resources :categories
     end
   end
 end

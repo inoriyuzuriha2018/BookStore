@@ -8,7 +8,7 @@
         aria-label="Checkbox for following text input"
       />
       <label class="form-check-label" for="flexCheckDefault">
-        Post have public
+        The Posts have public
       </label>
     </div>
     <div class="input-group mb-3">
@@ -78,18 +78,19 @@
             </td>
             <td>{{ category.posts_count }}</td>
             <td style="">
-              <button
-                @click="editCategory(category.id)"
-                class="btn btn-info"
-                style="margin-left: 10px"
+              <router-link
+                :to="{ name: 'CategoryEdit', params: { id: category.id } }"
               >
-                <i class="icon-edit-sign"></i>
-              </button>
+                <button class="btn btn-info" style="margin-left: 10px">
+                  <i class="icon-edit-sign"></i>
+                </button>
+              </router-link>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <div>
       <paginate
         v-model="state.currentPage"
@@ -106,20 +107,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch, computed } from 'vue'
-import { getSearchCategories, getCategoryList } from '@/services/Category'
+import { reactive, ref, watch, computed } from 'vue'
+import { getCategories } from '@/services/Category'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import Paginate from 'vuejs-paginate-next'
 import { useRoute, useRouter } from 'vue-router'
-
-interface Category {
-  id: number
-  title: string
-  description: string
-  image: string | null
-  posts_count: number
-}
+import type { Category } from '@/interfaces/Category'
 
 const router = useRouter()
 const route = useRoute()
@@ -131,7 +125,7 @@ const totalPage = ref(3)
 const placeholderImage = 'https://via.placeholder.com/50'
 
 const state = reactive({
-  categories: [],
+  categories: [] as Category[],
   filter: {
     title: route.query.title || '',
     hasPost: route.query.hasPost || false,
@@ -140,71 +134,47 @@ const state = reactive({
   totalPost: 0,
 })
 
-onMounted(() => {
-  getCategoryList(+state.currentPage).then((response: any) => {
-    if (response.data.length > 0) {
-      totalPage.value = response.total
-      state.categories = response.data
-      loading.value = true
-    } else {
-      toast('No data!')
-    }
-    //console.log(  response.data.length);
-  })
-})
+const fethCategory = (filter: object) => {
+  console.log(filter)
+  getCategories(filter)
+    .then((response: any) => {
+      if (response.data.length > 0) {
+        totalPage.value = response.total
+        state.categories = response.data
+        loading.value = true
+      } else {
+        toast('No data!')
+      }
+      //console.log(  response.data.length);
+    })
+    .catch(e => {
+      console.log(e)
+    })
+}
 
 watch(
   () => route.query,
-  (newVal, oldVal) => {
-    const queryCurrent = window.location.search
-    searchText(queryCurrent)
+  newVal => {
+    fethCategory(newVal)
   },
 )
 
 const clickCallback = (pageNum: number) => {
+  console.log(pageNum)
   router.push({ query: { ...route.query, page: pageNum } })
 }
 
 const performSearch = () => {
-  const query = {
-    ...router.query,
-  }
-  if (state.filter.title.length > 0) {
-    Object.defineProperty(query, 'title', {
-      value: state.filter.title,
-      writable: true, // Có thể chỉnh sửa
-      enumerable: true, // Được liệt kê trong vòng lặp
-      configurable: true, // Có thể xóa hoặc thay đổi thuộc tính
-    })
-  }
-  if (state.filter.hasPost) {
-    Object.defineProperty(query, 'hasPost', {
-      value: state.filter.hasPost,
-      writable: true, // Có thể chỉnh sửa
-      enumerable: true, // Được liệt kê trong vòng lặp
-      configurable: true, // Có thể xóa hoặc thay đổi thuộc tính
-    })
-  }
+  const query = { ...route.query }
+  query.title = state.filter.title
+  query.has_post = `${state.filter.hasPost}`
+  console.log(query)
   router.push({ query: query })
-}
-
-const searchText = (query: string): void => {
-  getSearchCategories(query).then((response: any) => {
-    if (response.data.length > 0) {
-      totalPage.value = response.total
-      state.categories = response.data
-    } else {
-      if (response.total < route.query.page && route.query.page != null) {
-        router.push({ query: { title: state.filter.title, page: 1 } })
-      }
-    }
-    //console.log(  response.data.length);
-  })
 }
 
 const computedTotalPostAPage = computed(() => {
   return state.categories.reduce(
-    (total, category) => total + category.posts_count,
+    (total, category) => total + Number(category.posts_count),
     0,
   )
 })
@@ -214,16 +184,7 @@ const getImageUrl = (image: string): string => {
   return `${image}`
 }
 
-const deleteCategory = (id: number): void => {
-  if (confirm('Are you sure?')) {
-    // Call API to delete the category
-  }
-}
-
-const editCategory = (id: number): void => {
-  // Navigate to edit category route
-  router.push({ name: 'CategoryEdit', params: { id: id } })
-}
+fethCategory({})
 </script>
 <style lang="scss" scoped>
 .width-table {

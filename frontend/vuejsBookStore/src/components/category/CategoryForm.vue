@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-center rounded w-50 m-3 pt-5 theme">
-    <form @submit.prevent="submitForm">
+    <form>
       <div class="form-group form mt-3">
         <label for="name">Title</label>
         <input
@@ -12,7 +12,7 @@
           }"
           v-model="state.category.title"
         />
-        <div v-if="state.errors.title.length" class="invalid-feedback">
+        <div v-if="state.errors?.title?.length" class="invalid-feedback">
           {{ state.errors.title[0] }}
         </div>
       </div>
@@ -47,72 +47,59 @@
         />
       </div>
       <div class="form-group mt-3">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" @click="submitForm" class="btn btn-primary">
+          Save
+        </button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch, computed } from 'vue'
-import type { Ref } from 'vue'
-interface Category {
-  // Define properties according to the category object structure
-  id: number
-  title: string
-  description: string
-  image: Blob
-}
-
-const computedInitDefaultErrors = computed(() => {
-  return {
-    title: [],
-    description: [],
-    image: '',
-  }
-})
-
-const computedInitDefaultCategory = computed(() => {
-  return {
-    title: '',
-    description: '',
-    image: '',
-  }
-})
-
-const displayImage = ref(null)
+import { reactive, ref, watch } from 'vue'
+import type { Category } from '@/interfaces/Category'
 
 const props = defineProps<{
   category: Category
-  errors: object
+  errors?: Record<string, any>
 }>()
 
 const state = reactive({
-  category: computedInitDefaultCategory.value,
-  errors: computedInitDefaultErrors.value,
+  category: props.category,
+  errors: props.errors,
 })
+
+const displayImage = ref()
+
+watch(
+  () => props.category,
+  newVal => {
+    state.category = newVal
+    displayImage.value = state.category?.image
+  },
+)
+
+watch(
+  () => props.errors,
+  newVal => {
+    state.errors = newVal
+  },
+)
 
 const emit = defineEmits<{
   (e: 'submit', category: Category): void
 }>()
 
-watch(props, newVal => {
-  state.category = newVal.category
-  state.errors = newVal.errors
-  displayImage.value = state.category.image
-  state.category.image = null
-  console.log(state.errors)
-})
-
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   state.category.image = file
-  displayImage.value = URL.createObjectURL(file)
+  console.log(file)
+  displayImage.value = URL.createObjectURL(file as Blob)
 }
 
 const submitForm = () => {
-  state.errors = computedInitDefaultErrors.value
+  console.log(state.category)
   emit('submit', state.category)
 }
 </script>

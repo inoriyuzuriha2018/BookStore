@@ -2,21 +2,21 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
   before_action :set_category, only: %i[show update destroy]
 
   def index
-    categories = Category.includes(:posts)
-    .order("id DESC")
-    .page(params[:page])
-    .per(15)
+    hasPost =  params[:has_post].to_s.downcase == "true" ? true : false 
+    
+    categories = Category.searchCategory(params[:title]).order("id DESC").page(params[:page]).per(15)
     totalPages = categories.total_pages
+    
     newCategories = categories.map do |category|
       {
         id: category.id,
         title: category.title,
         description: category.description,
-        image: category.image.attached? ? url_for(category.image) :nil ,
-        posts_count: category.posts.size # Hoặc category.products.count
+        image: category.image.attached? ? url_for(category.image) :nil,
+        posts_count: hasPost ? category.posts.where(is_public: true).size  : category.posts.size
       }
     end
-  
+
     render json: { total: totalPages, data: newCategories }, status: :ok
   end
 
@@ -56,25 +56,6 @@ class Api::V1::CategoriesController < Api::V1::ApplicationApiController
   def destroy
     @category.destroy!
     head :no_content
-  end
-
-  def serachCategory
-    hasPost =  params[:hasPost].to_s.downcase == "true" ? true : false 
-    
-    categories = Category.searchCategory(params[:title]).order("id DESC").page(params[:page]).per(15)
-    totalPages = categories.total_pages
-
-    newCategories = categories.map do |category|
-      {
-        id: category.id,
-        title: category.title,
-        description: category.description,
-        image: category.image.attached? ? url_for(category.image) :nil,
-        posts_count: hasPost ? category.posts.where(is_public: true).size  : category.posts.size
-      }
-    end
-    
-    render json: { total: totalPages, data: newCategories }, status: :ok
   end
 
   private
