@@ -9,10 +9,8 @@ import CategoryForm from '../../components/category/CategoryForm.vue'
 import { getCategory, patchCategory } from '@/services/Category'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, reactive } from 'vue'
-import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import type { Category } from '@/interfaces/Category'
-import { c } from 'node_modules/vite/dist/node/types.d-aGj9QkWt'
 
 const route = useRoute()
 const router = useRouter()

@@ -3,5 +3,9 @@ class Post < ApplicationRecord
   belongs_to :category
   enum is_public: { public: 1, unpublic: 0 },  _prefix: :post
 
-  validates :title, length: { maximum: 255 }, presence: true, uniqueness: true, allow_blank: false  
+  validates :title, length: { maximum: 255 }, presence: true, uniqueness: true, allow_blank: false
+
+  def self.searchPost(title)
+    where("title LIKE ?", "%#{title}%")
+  end
 end

@@ -2,8 +2,18 @@ class Api::V1::PostsController < Api::V1::ApplicationApiController
   before_action :set_post, only: %i[show update destroy]
 
   def index
-    posts = Post.all.order("id DESC").page(params[:page]).per(15)
-    render json: {data: posts }, status: :ok
+    posts = Post.searchPost(params[:title]).order("id DESC").page(params[:page]).per(15)
+    totalPages = posts.total_pages
+    newPosts = posts.map do |post|
+    {  
+      id: post.id,
+      title: post.title,
+      description: post.description,
+      is_public: post.is_public,
+      category: post.category,
+    }
+    end
+    render json: {total: totalPages ,data: newPosts }, status: :ok
   end
 
   def show

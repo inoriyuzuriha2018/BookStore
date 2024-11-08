@@ -7,7 +7,7 @@ class Category < ApplicationRecord
 
   validates :title, length: { maximum: 255 }, presence: true, uniqueness: true
 
-  def self.searchCategory(title, hasPost = false)
+  def self.searchCategory(title)
     where("title LIKE ?", "%#{title}%")
   end
 end

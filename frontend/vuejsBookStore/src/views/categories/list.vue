@@ -135,7 +135,6 @@ const state = reactive({
 })
 
 const fethCategory = (filter: object) => {
-  console.log(filter)
   getCategories(filter)
     .then((response: any) => {
       if (response.data.length > 0) {
@@ -145,7 +144,6 @@ const fethCategory = (filter: object) => {
       } else {
         toast('No data!')
       }
-      //console.log(  response.data.length);
     })
     .catch(e => {
       console.log(e)
@@ -160,7 +158,6 @@ watch(
 )
 
 const clickCallback = (pageNum: number) => {
-  console.log(pageNum)
   router.push({ query: { ...route.query, page: pageNum } })
 }
 
@@ -168,7 +165,6 @@ const performSearch = () => {
   const query = { ...route.query }
   query.title = state.filter.title
   query.has_post = `${state.filter.hasPost}`
-  console.log(query)
   router.push({ query: query })
 }
 

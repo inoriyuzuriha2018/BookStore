@@ -6,6 +6,9 @@ import CategoryLayout from '../layouts/CategoryLayout.vue' // Layout chính
 import CategoryList from '../views/categories/list.vue'
 import CategoryEdit from '../views/categories/edit.vue'
 import CategoryNew from '@/views/categories/new.vue'
+import PostLayout from '../layouts/Post.vue'
+import PostList from '../views/posts/list.vue'
+import PostEdit from '../views/posts/edit.vue'
 
 const routes = [
   {
@@ -45,6 +48,22 @@ const routes = [
         name: 'CategoryNew',
         component: CategoryNew,
         props: true,
+      },
+    ],
+  },
+  {
+    path: '/posts',
+    component: PostLayout,
+    children: [
+      {
+        path: '',
+        name: 'PostList',
+        component: PostList,
+      },
+      {
+        path: 'edit/:id',
+        name: 'PostEdit',
+        component: PostEdit,
       },
     ],
   },

@@ -94,12 +94,11 @@ const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   state.category.image = file
-  console.log(file)
+
   displayImage.value = URL.createObjectURL(file as Blob)
 }
 
 const submitForm = () => {
-  console.log(state.category)
   emit('submit', state.category)
 }
 </script>

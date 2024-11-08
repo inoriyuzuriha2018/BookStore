@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createBootstrap } from 'bootstrap-vue-next'
+import { createI18n } from 'vue-i18n'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import Paginate from 'vuejs-paginate-next'
 
@@ -14,6 +15,7 @@ import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
+const i18n = createI18n({})
 
 app.use(createPinia())
 app.use(createBootstrap())
@@ -22,5 +24,6 @@ app.use(Vue3Toastify, {
   autoClose: 3000,
 } as ToastContainerOptions)
 app.use(Paginate)
+app.use(i18n)
 
 app.mount('#app')

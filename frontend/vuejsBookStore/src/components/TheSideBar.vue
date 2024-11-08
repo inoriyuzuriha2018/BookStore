@@ -20,15 +20,18 @@
 
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <router-link
-              class="nav-link active"
-              aria-current="page"
-              to="/categories"
-            >
+            <router-link class="nav-link" aria-current="page" to="/categories">
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#home"></use>
               </svg>
               Category
+            </router-link>
+
+            <router-link class="nav-link" aria-current="page" to="/posts">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home"></use>
+              </svg>
+              Post
             </router-link>
           </li>
         </ul>
