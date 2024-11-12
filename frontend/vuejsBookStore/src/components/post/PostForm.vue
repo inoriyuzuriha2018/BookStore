@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center rounded w-50 m-3 pt-5 theme">
     <form>
       <div class="form-group form mt-3">
-        <label for="name">Title</label>
+        <label for="name">{{ t('form.labels.title') }}</label>
         <input
           type="text"
           id="name"
@@ -11,7 +11,7 @@
         />
       </div>
       <div class="form-group mt-3">
-        <label for="name">Description</label>
+        <label for="name">{{ t('form.labels.description') }}</label>
         <input
           type="text"
           class="form-control p-3"
@@ -28,7 +28,7 @@
           :checked="statusPublic"
           v-model="newPost.post.is_public"
         />
-        <label for="checkbox">Status</label>
+        <label for="checkbox">{{ t('form.labels.status') }}</label>
       </div>
       <div class="form-group mt-3">
         <select
@@ -46,7 +46,7 @@
       </div>
       <div class="form-group mt-3">
         <button type="button" @click="submitForm" class="btn btn-primary">
-          Save
+          {{ t('form.buttons.save') }}
         </button>
       </div>
     </form>
@@ -58,6 +58,11 @@ import { usePostsStore } from '../../stores/post'
 import { useCategoriesStore } from '@/stores/Category'
 import type { Post } from '@/interfaces/Post'
 import { reactive, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n({
+  useScope: 'local',
+})
 
 const postsStore = usePostsStore()
 const categoriesStore = useCategoriesStore()
@@ -86,3 +91,33 @@ const submitForm = () => {
   background-color: #eee;
 }
 </style>
+<i18n lang="json5">
+{
+  en: {
+    form: {
+      labels: {
+        title: 'Title',
+        description: 'Description',
+        status: 'Status',
+        category: 'Category',
+      },
+      buttons: {
+        save: 'Save',
+      },
+    },
+  },
+  vi: {
+    form: {
+      labels: {
+        title: 'Tiêu đề',
+        description: 'Mô tả',
+        status: 'Trạng thái',
+        category: 'Danh mục',
+      },
+      buttons: {
+        save: 'Lưu',
+      },
+    },
+  },
+}
+</i18n>

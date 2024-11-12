@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center rounded w-50 m-3 pt-5 theme">
     <form>
       <div class="form-group form mt-3">
-        <label for="name">Title</label>
+        <label for="name">{{ t('edit.form.labels.title') }}</label>
         <input
           type="text"
           id="name"
@@ -18,7 +18,7 @@
       </div>
 
       <div class="form-group mt-3">
-        <label for="name">description:</label>
+        <label for="name">{{ t('edit.form.labels.description') }}</label>
         <input
           type="text"
           id="name"
@@ -28,7 +28,9 @@
       </div>
 
       <div class="form-group mt-3">
-        <label for="image" class="form-label">Category Image URL:</label>
+        <label for="image" class="form-label">{{
+          t('edit.form.labels.image')
+        }}</label>
         <input
           type="file"
           id="formFile"
@@ -38,7 +40,7 @@
       </div>
 
       <div v-if="displayImage" class="form-group mt-3">
-        <label for="image">Image Preview:</label>
+        <label for="image">{{ t('edit.form.labels.preview') }}</label>
         <img
           :src="displayImage"
           alt="Category Image"
@@ -48,7 +50,7 @@
       </div>
       <div class="form-group mt-3">
         <button type="button" @click="submitForm" class="btn btn-primary">
-          Save
+          {{ t('edit.form.buttons.save') }}
         </button>
       </div>
     </form>
@@ -58,6 +60,11 @@
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
 import type { Category } from '@/interfaces/Category'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n({
+  useScope: 'local',
+})
 
 const props = defineProps<{
   category: Category
@@ -82,6 +89,7 @@ watch(
 watch(
   () => props.errors,
   newVal => {
+    console.log(newVal)
     state.errors = newVal
   },
 )
@@ -108,3 +116,46 @@ const submitForm = () => {
   background-color: #eee;
 }
 </style>
+
+<i18n lang="json5">
+{
+  en: {
+    edit: {
+      title: 'Edit Category',
+      form: {
+        labels: {
+          title: 'Title',
+          description: 'Description',
+          image: 'Category Image URL',
+          preview: 'Image Preview',
+        },
+        buttons: {
+          save: 'Save',
+        },
+        errors: {
+          titleRequired: 'Title is required',
+        },
+      },
+    },
+  },
+  vi: {
+    edit: {
+      title: 'Chỉnh sửa danh mục',
+      form: {
+        labels: {
+          title: 'Tiêu đề',
+          description: 'Mô tả',
+          image: 'URL hình ảnh danh mục',
+          preview: 'Xem trước hình ảnh',
+        },
+        buttons: {
+          save: 'Lưu',
+        },
+        errors: {
+          titleRequired: 'Tiêu đề là bắt buộc',
+        },
+      },
+    },
+  },
+}
+</i18n>

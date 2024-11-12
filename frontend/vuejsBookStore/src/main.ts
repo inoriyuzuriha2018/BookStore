@@ -15,7 +15,17 @@ import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
-const i18n = createI18n({})
+const i18n = createI18n({
+  legacy: false,
+  globalInjection: true,
+  locale: localStorage.getItem('last-locale') || 'en',
+  fallbackLocale: 'en',
+  availableLocales: ['en', 'vi'],
+  messages: {
+    en: {},
+    vi: {},
+  },
+})
 
 app.use(createPinia())
 app.use(createBootstrap())

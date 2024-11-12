@@ -8,7 +8,7 @@
         aria-label="Checkbox for following text input"
       />
       <label class="form-check-label" for="flexCheckDefault">
-        The Posts have public
+        {{ t('filters.hasPost') }}
       </label>
     </div>
     <div class="input-group mb-3">
@@ -24,7 +24,7 @@
       </div>
       <input
         type="search"
-        placeholder="Search for category..."
+        :placeholder="t('filters.searchPlaceholder')"
         v-model="state.filter.title"
         class="mb-0 h-auto form-control"
       />
@@ -33,12 +33,14 @@
   <div>
     <div class="float-start ps-3 mb-3">
       <router-link :to="{ name: 'CategoryNew' }">
-        <button class="btn btn-primary">New</button>
+        <button class="btn btn-primary">
+          {{ t('buttons.new') }}
+        </button>
       </router-link>
     </div>
 
     <p class="float-end pe-5" v-if="loading">
-      Total Post a Page: {{ computedTotalPostAPage }}
+      {{ t('pagination.totalPosts') }}: {{ computedTotalPostAPage }}
     </p>
   </div>
   <div>
@@ -46,12 +48,12 @@
       <table class="table table-sm table-bordered table-striped width-table">
         <thead class="thead-dark">
           <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Count</th>
-            <th>Feature</th>
+            <th>{{ t('table.headers.id') }}</th>
+            <th>{{ t('table.headers.title') }}</th>
+            <th>{{ t('table.headers.description') }}</th>
+            <th>{{ t('table.headers.image') }}</th>
+            <th>{{ t('table.headers.count') }}</th>
+            <th>{{ t('table.headers.feature') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -95,8 +97,10 @@
       <paginate
         v-model="state.currentPage"
         :page-count="totalPage"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
+        :prev-text="t('pagination.previous')"
+        :next-text="t('pagination.next')"
+        :first-button-text="t('pagination.first')"
+        :last-button-text="t('pagination.last')"
         :container-class="'pagination d-flex justify-content-center'"
         :first-last-button="true"
         :click-handler="clickCallback"
@@ -114,7 +118,11 @@ import 'vue3-toastify/dist/index.css'
 import Paginate from 'vuejs-paginate-next'
 import { useRoute, useRouter } from 'vue-router'
 import type { Category } from '@/interfaces/Category'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n({
+  useScope: 'local',
+})
 const router = useRouter()
 const route = useRoute()
 
@@ -175,7 +183,7 @@ const computedTotalPostAPage = computed(() => {
   )
 })
 
-const getImageUrl = (image: string): string => {
+const getImageUrl = (image: File): string => {
   // Modify this logic to suit your API/image handling
   return `${image}`
 }
@@ -196,3 +204,64 @@ fethCategory({})
   height: 32px;
 }
 </style>
+
+<i18n lang="json5">
+{
+  en: {
+    filters: {
+      hasPost: 'The Posts have public',
+      searchPlaceholder: 'Search for category...',
+    },
+    buttons: {
+      new: 'New',
+      search: 'Search',
+      edit: 'Edit',
+    },
+    table: {
+      headers: {
+        id: 'ID',
+        title: 'Title',
+        description: 'Description',
+        image: 'Image',
+        count: 'Count',
+        feature: 'Feature',
+      },
+    },
+    pagination: {
+      totalPosts: 'Total Post a Page',
+      previous: 'Prev',
+      next: 'Next',
+      first: 'First',
+      last: 'Last',
+    },
+  },
+  vi: {
+    filters: {
+      hasPost: 'Các bài viết được công khai',
+      searchPlaceholder: 'Tìm kiếm danh mục...',
+    },
+    buttons: {
+      new: 'Tạo mới',
+      search: 'Tìm kiếm',
+      edit: 'Chỉnh sửa',
+    },
+    table: {
+      headers: {
+        id: 'ID',
+        title: 'Tiêu đề',
+        description: 'Mô tả',
+        image: 'Hình ảnh',
+        count: 'Số lượng',
+        feature: 'Chức năng',
+      },
+    },
+    pagination: {
+      totalPosts: 'Tổng số bài trên mỗi trang',
+      previous: 'Trước',
+      next: 'Tiếp',
+      first: 'Đầu',
+      last: 'cuối',
+    },
+  },
+}
+</i18n>

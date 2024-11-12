@@ -4,12 +4,12 @@
       <table class="table table-sm table-bordered table-striped width-table">
         <thead class="thead-dark">
           <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>status</th>
-            <th>Feature</th>
+            <th>{{ t('table.headers.id') }}</th>
+            <th>{{ t('table.headers.title') }}</th>
+            <th>{{ t('table.headers.description') }}</th>
+            <th>{{ t('table.headers.category') }}</th>
+            <th>{{ t('table.headers.status') }}</th>
+            <th>{{ t('table.headers.feature') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -23,10 +23,14 @@
             <td>{{ post.description }}</td>
             <td>{{ post.category?.title }}</td>
             <td>
-              <span v-if="post.is_public == 'public'" class="badge bg-success"
-                >Public</span
+              <span
+                v-if="post.is_public == 'public'"
+                class="badge bg-success"
+                >{{ t('table.status.public') }}</span
               >
-              <span v-else class="badge bg-secondary">Private</span>
+              <span v-else class="badge bg-secondary">{{
+                t('table.status.private')
+              }}</span>
             </td>
             <td style="">
               <router-link :to="{ name: 'PostEdit', params: { id: post.id } }">
@@ -44,8 +48,10 @@
       <paginate
         v-model="currentPage"
         :page-count="getTotal"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
+        :prev-text="t('pagination.previous')"
+        :next-text="t('pagination.next')"
+        :first-button-text="t('pagination.first')"
+        :last-button-text="t('pagination.last')"
         :container-class="'pagination d-flex justify-content-center'"
         :first-last-button="true"
         :click-handler="clickCallback"
@@ -61,6 +67,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { usePostsStore } from '../../stores/post'
 import { getPostsAPI } from '@/services/Post'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n({
+  useScope: 'local',
+})
 
 const router = useRouter()
 const route = useRoute()
@@ -102,3 +113,60 @@ fetchPosts({ page: currentPage.value })
   }
 }
 </style>
+
+<i18n lang="json5">
+{
+  en: {
+    table: {
+      headers: {
+        id: 'ID',
+        title: 'Title',
+        description: 'Description',
+        category: 'Category',
+        status: 'Status',
+        feature: 'Feature',
+      },
+      status: {
+        public: 'Public',
+        private: 'Private',
+      },
+      buttons: {
+        edit: 'Edit',
+      },
+    },
+    pagination: {
+      totalPosts: 'Total Post a Page',
+      previous: 'Prev',
+      next: 'Next',
+      first: 'First',
+      last: 'Last',
+    },
+  },
+  vi: {
+    table: {
+      headers: {
+        id: 'ID',
+        title: 'Tiêu đề',
+        description: 'Mô tả',
+        category: 'Danh mục',
+        status: 'Trạng thái',
+        feature: 'Chức năng',
+      },
+      status: {
+        public: 'Công khai',
+        private: 'Riêng tư',
+      },
+      buttons: {
+        edit: 'Chỉnh sửa',
+      },
+    },
+    pagination: {
+      totalPosts: 'Tổng số bài trên mỗi trang',
+      previous: 'Trước',
+      next: 'Tiếp',
+      first: 'Đầu',
+      last: 'cuối',
+    },
+  },
+}
+</i18n>

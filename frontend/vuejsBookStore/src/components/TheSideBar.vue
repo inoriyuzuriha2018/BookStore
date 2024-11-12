@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="wrap col-2 card card-body sticky-top" id="eventCollapse">
     <div
@@ -24,14 +22,14 @@
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#home"></use>
               </svg>
-              Category
+              {{ t('sidebar.category') }}
             </router-link>
 
             <router-link class="nav-link" aria-current="page" to="/posts">
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#home"></use>
               </svg>
-              Post
+              {{ t('sidebar.Post') }}
             </router-link>
           </li>
         </ul>
@@ -39,9 +37,32 @@
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n({
+  useScope: 'local',
+})
+</script>
 <style scoped>
 .wrap {
   height: 100vh;
 }
 </style>
+<i18n locale="en" lang="json5">
+{
+  sidebar: {
+    category: 'Category',
+    Post: 'Post',
+  },
+}
+</i18n>
+
+<i18n locale="vi" lang="json5">
+{
+  sidebar: {
+    category: 'Danh mục',
+    Post: 'Bài viết',
+  },
+}
+</i18n>
