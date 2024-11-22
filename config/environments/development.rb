@@ -29,6 +29,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+  config.web_console.permissions = '192.168.0.0/16'
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -76,6 +77,10 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
   config.active_job.queue_name_prefix = "mysite"
   config.active_job.queue_name_delimiter = "_"
+
+  # Add host for ngrok
+  config.hosts << /[a-z0-9-.]+\.ngrok\.io/
+  config.hosts << /[a-z0-9-.]+\.ngrok-free\.app/
 
   config.server_timing = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }

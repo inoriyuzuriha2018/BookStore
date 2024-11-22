@@ -1,0 +1,51 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    ports:
+      - "3399:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123123
+    volumes:
+      - db_data:/var/lib/mysql
+  redis:
+    image: redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - '6379:6379'  
+  sidekiq:
+    build: .
+    volumes:
+      - .:/my_app
+    links:
+      - db
+      - redis
+    command: bundle exec sidekiq
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/my_app
+      - rails_storage:/myapp/storage
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile.front
+    ports:
+      - "5173:5173" # use port that you want to in your local instead of 8091
+    volumes:
+      - ./front:/front
+      - front_node_modules:/front/node_modules    
+volumes:
+  my_app:
+  db_data:
+  front_node_modules:
+  rails_storage:
